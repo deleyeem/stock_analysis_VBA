@@ -1,0 +1,135 @@
+Sub StockAnalysis()
+Dim ws As Worksheet
+    
+'For each loop to apply to all the worksheets in workbook
+For Each ws In ThisWorkbook.Worksheets
+    ws.Activate
+
+    'Initialize variables needed. Anything that will change/need a place holder.
+    Dim i As Long
+    Dim j As Integer
+    Dim Ticker As String
+    Dim PositionTicker As Long
+    Dim OpenDate As Long
+    Dim CloseDate As Long
+    Dim OpenPrice As Double
+    Dim ClosePrice As Double
+    Dim YearlyChange As Double
+    Dim PercentChange As Double
+    Dim VolTotal As Long
+    Dim LastRowA As Long
+    Dim LastRowK As Long
+    Dim MaxIncrease As Double
+    Dim MaxTickerInc As String
+    Dim MaxDecrease As Double
+    Dim MaxTickeDec As String
+    Dim MaxVol As Double
+    Dim VolTicker As String
+    
+    'Assign variable values
+    Ticker = " "
+    PositionTicker = 2
+    OpenPrice = 0
+    ClosePrice = 0
+    YearlyChange = 0
+    PercentChange = 0
+    VolTotal = 0
+'    LastRowA = Cells(Rows.Count, 1).End(xlUp).Row
+    MaxIncrease = 0
+    MaxDecrease = 0
+    MaxVol = 0
+    MaxTickerInc = " "
+    MaxTickerDec = " "
+    VolTicker = " "
+    
+    'Assign column headers
+    Range("I" & "1").Value = "Ticker"
+    Range("J" & "1").Value = "Yearly Change"
+    Range("K" & "1").Value = "Percent Change"
+    Range("L" & "1").Value = "Total Stock Volume"
+    Range("O" & "2").Value = "Greatest % increase"
+    Range("O" & "3").Value = "Greatest % decrease"
+    Range("O" & "4").Value = "Greatest total volume"
+    Range("P" & "1").Value = "Ticker"
+    Range("Q" & "1").Value = "Value"
+    
+    LastRowA = Cells(Rows.Count, 1).End(xlUp).Row
+    'Loop through all tickers in column A
+    For i = 2 To LastRowA
+     'If tickers are different. First row of ticker.
+     If Cells(i, 1).Value <> Cells(i - 1, 1).Value Then
+        'identify and hold Ticker
+        Ticker = Cells(i, 1).Value
+        'print ticker in new table
+        Range("I" & PositionTicker).Value = Ticker
+        
+        'Capture open price
+        OpenPrice = Range("C" & i).Value
+        
+    'If tickers are different. Last row of ticker.
+    ElseIf Cells(i, 1).Value <> Cells(i + 1, 1).Value Then
+        'identify close price
+        ClosePrice = Range("F" & i).Value
+        'calculate yearly change
+        YearlyChange = ClosePrice - OpenPrice
+        'put price in new table
+        Range("J" & PositionTicker).Value = YearlyChange
+        'Apply Price Change Conditional
+            If Range("J" & PositionTicker).Value >= 0 Then
+                Range("J" & PositionTicker).Interior.Color = RGB(0, 255, 0)
+             Else
+                Range("J" & PositionTicker).Interior.Color = RGB(255, 0, 0)
+            End If
+            
+        'calculate percent change
+        PercentChange = (YearlyChange / OpenPrice)
+        'print percent change
+        Range("K" & PositionTicker).Value = PercentChange
+        'print volume
+        Range("L" & PositionTicker).Value = VolTot
+        'Update ticker position
+        PositionTicker = PositionTicker + 1
+        'Reset
+        VolTot = 0
+        
+    'Rows in between first of last
+    Else
+        VolTot = VolTot + Range("G" & i).Value
+    
+    End If
+    Next i
+    
+    ' Loop through summarized data and evaluate
+    LastRowK = Cells(Rows.Count, 11).End(xlUp).Row
+    
+    For j = 2 To LastRowK
+        If Range("K" & j).Value > MaxIncrease Then
+            MaxIncrease = Range("K" & j).Value
+            MaxTickerInc = Range("I" & j).Value
+        End If
+        If Range("K" & j).Value < MaxDecrease Then
+            MaxDecrease = Range("K" & j).Value
+            MaxTickerDec = Range("I" & j).Value
+        End If
+        If Range("L" & j).Value > MaxVol Then
+            MaxVol = Range("L" & j).Value
+            VolTicker = Range("I" & j).Value
+        End If
+    Next j
+
+    'print summary of evaluation
+    Range("P" & "2").Value = MaxTickerInc
+    Range("Q" & "2").Value = MaxIncrease
+    Range("P" & "3").Value = MaxTickerDec
+    Range("Q" & "3").Value = MaxDecrease
+    Range("P" & "4").Value = VolTicker
+    Range("Q" & "4").Value = MaxVol
+    
+    'Format percent change to percentage
+    Range("K2:K" & LastRowK).NumberFormat = "0.00%"
+    Range("Q2").NumberFormat = "0.00%"
+    Range("Q3").NumberFormat = "0.00%"
+    
+    Columns.AutoFit
+Next ws
+End Sub
