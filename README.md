@@ -1,24 +1,23 @@
-# VBA-Challenge
-VBA script to analyze stock.
+## Project Overview
+This project involves analyzing stock market data using VBA scripting. The task includes calculating quarterly changes, percentage changes, and total stock volumes for each stock, as well as identifying stocks with the greatest percentage increase, greatest percentage decrease, and greatest total volume.
 
-For this challenge I had difficulty setting up the logic. I worked with BCS Learning Assistant on 3/10/24 to help set up the logic for my three If statements in my For loop. From this session I was able to develop the skill of designing my code before I start.
+## Background
+I applyed VBA scripting to financial data analysis to automate repetitive tasks and performing calculations on large datasets so I can gain valuable insights into stock market trends and performance metrics.
 
-I also had difficulty debugging my code on 3/9 and 3/10 and worked with BCS Learning Assistants. From these sessions I learned that the order of defining variables can cause errors. For examples my LastRowK was assigned up at the very top but at that point in time column K had no data therefore I needed to assign the variable after the column had data.
+## Tools and Libraries Used
+Excel for data manipulation and analysis
+VBA (Visual Basic for Applications) for scripting and automation
 
-Instructions for future reference:
-Create a script that loops through all the stocks for one year and outputs the following information:
+## Process Description
+Data Retrieval: Develop a VBA script to loop through each quarter of stock data and retrieve relevant information such as ticker symbols, stock volumes, open prices, and close prices.
 
-The ticker symbol
+Column Creation: Create new columns on the worksheet to store the retrieved data, including ticker symbols, total stock volumes, quarterly changes, and percentage changes.
 
-Yearly change from the opening price at the beginning of a given year to the closing price at the end of that year.
+Conditional Formatting: Apply conditional formatting to highlight positive changes in green and negative changes in red, enhancing the visual representation of data.
 
-The percentage change from the opening price at the beginning of a given year to the closing price at the end of that year.
+Calculated Values: Calculate the greatest percentage increase, greatest percentage decrease, and greatest total volume for each quarter and display these values in the output.
 
-The total stock volume of the stock. 
+Looping Across Worksheets: Modify the VBA script to run on all sheets (quarters) simultaneously, ensuring consistent performance across multiple datasets.
 
-Add functionality to your script to return the stock with the "Greatest % increase", 
-"Greatest % decrease", and "Greatest total volume".
-
-Make the appropriate adjustments to your VBA script to enable it to run on every worksheet (that is, every year) at once.
-
-Make sure to use conditional formatting that will highlight positive change in green and negative change in red.
+## Conclusion
+By leveraging VBA scripting and Excel functionality, I performed a comprehensive analysis of stock market data. Through automation and visualization techniques, I identified valuable insights into stock performance metrics and identify key trends for further exploration.
